@@ -15,9 +15,18 @@ public class ItemService : IItemService
         return itemService;
     }
 
-    public void Login(string username, string password)
+    public bool Login(string username, string password)
     {
-      
+        bool flag = false;
+        foreach (User user in DataBase.GetDataBase().users)
+        {
+            if((user.GetName() == username)&&(user.GetPassword() == password))
+            {
+                flag = true;
+            }
+        }
+
+        return flag;
     }
 
     public void ChangePassword(string newPassword)

@@ -4,7 +4,7 @@ namespace Service;
 
 public interface IItemService
 {
-    public void Login(string username, string password);
+    public bool Login(string username, string password);
     public void ChangePassword(string newPassword);
     public void ChangeName(string newName);
     public void ChangeAddress(string newAddress);
