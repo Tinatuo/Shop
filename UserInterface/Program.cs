@@ -60,6 +60,7 @@ void LogIn()
 
 void ChangeInfo(string input)
 {
+    
     Console.WriteLine("what do you want to change?");
     Console.WriteLine("1.Name   2.password  3.address ");
     if (Console.ReadLine().Equals("1"))
