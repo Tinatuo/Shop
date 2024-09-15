@@ -5,7 +5,7 @@ public class Pen:Item
     private string brand;
     private string color;
 
-    public Pen(int price, int numbersOfBooks, string address, string brand, string color) : base(price, numbersOfBooks, address)
+    public Pen(int price, string address, string brand, string color) : base(price, address)
     {
         this.brand = brand;
         this.color = color;

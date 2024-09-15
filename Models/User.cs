@@ -15,6 +15,16 @@ public class User
        return password;
    }
 
+   public void SetName(string name)
+   {
+       this.name = name;
+   }
+
+   public void SetPassword(string password)
+   {
+       this.password = password;
+   }
+
     public User(string name, string password)
     {
         this.name = name;

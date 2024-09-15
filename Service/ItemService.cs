@@ -2,58 +2,69 @@
 
 namespace Service;
 
-public class ItemService : IItemService
+
+public class ItemService: IItemService
 {
-    public static ItemService itemService;
 
-    public static ItemService GetItemService()
+    public bool AddBook(int price, int numbersOfItem, string address, int numberOfPages, string publication)
     {
-        if (itemService == null)
+        bool result = false;
+        Books newBook=new Books(price, address, numberOfPages, publication);
+        if (DataBase.GetDataBase().items.Contains(newBook))
         {
-            itemService = new ItemService();
+            int index = DataBase.GetDataBase().items.IndexOf(newBook);
+            DataBase.GetDataBase().items[index].SetNumberOfItem(DataBase.GetDataBase().items[index].GetNumbersOfItem()+1);
+            result = true;
         }
-        return itemService;
+        else
+        {
+            DataBase.GetDataBase().items.Add(newBook);
+            newBook.SetNumberOfItem(numbersOfItem);
+            result = true;
+        }
+        return result;
     }
 
-    public bool Login(string username, string password)
+    public bool AddPen(int price, int numbersOfItem, string address, string brand, string color)
     {
-        bool flag = false;
-        foreach (User user in DataBase.GetDataBase().users)
+        bool result = false;
+        Pen newPen=new Pen(price, address, brand, color);
+        if (DataBase.GetDataBase().items.Contains(newPen))
         {
-            if((user.GetName() == username)&&(user.GetPassword() == password))
-            {
-                flag = true;
-            }
+            int index = DataBase.GetDataBase().items.IndexOf(newPen);
+            DataBase.GetDataBase().items[index].SetNumberOfItem(DataBase.GetDataBase().items[index].GetNumbersOfItem()+1);
+            result = true;
+        }
+        else
+        {
+            DataBase.GetDataBase().items.Add(newPen);
+            newPen.SetNumberOfItem(numbersOfItem);
+            result = true;
+        }
+        return result;
+    }
+
+    public bool RemoveItem(Item item)
+    {
+        DataBase.GetDataBase().items.Remove(item);
+        return true;
+    }
+
+    public bool BuyItem(Item item)
+    {
+        bool result = false;
+        if (item.GetNumbersOfItem() > 0)
+        {
+            int nub = DataBase.GetDataBase().items.IndexOf(item);
+            DataBase.GetDataBase().items[nub].SetNumberOfItem(item.GetNumbersOfItem()-1);
+            ((NormalUser)UserService.GetUserService().onlineUser).GetItems().Add(item);
+            result = true;
+        }
+        else
+        {
+            DataBase.GetDataBase().items.Remove(item);
         }
 
-        return flag;
-    }
-
-    public void ChangePassword(string newPassword)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ChangeName(string newName)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ChangeAddress(string newAddress)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void SignUp(string name, string pass, string address,UserType userType)
-    {
-        if (userType == UserType.Admin)
-        {
-            Admin newAdmin=new Admin(name,pass);
-            DataBase.GetDataBase().users.Add(newAdmin);
-        }else if (userType == UserType.NormalUser)
-        {
-            NormalUser normalUser=new NormalUser(name, pass, address);
-            DataBase.GetDataBase().users.Add(normalUser);
-        }
+        return result;
     }
 }

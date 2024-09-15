@@ -4,10 +4,8 @@ namespace Service;
 
 public interface IItemService
 {
-    public bool Login(string username, string password);
-    public void ChangePassword(string newPassword);
-    public void ChangeName(string newName);
-    public void ChangeAddress(string newAddress);
-    public void SignUp(string name, string pass, string address,UserType userType);
-    
+    public bool AddBook(int price, int numbersOfItem, string address,int numberOfPages,string publication);
+    public bool AddPen(int price, int numbersOfItem, string address, string brand, string color);
+    public bool RemoveItem(Item item);
+    public bool BuyItem(Item item);
 }

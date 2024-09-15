@@ -34,14 +34,14 @@ void SignUp()
     string type = Console.ReadLine();
     if (type == "Admin")
     {
-        ItemService.GetItemService().SignUp(name,pass,null,UserType.Admin);
+        UserService.GetUserService().SignUp(name,pass,null,UserType.Admin);
         Console.WriteLine("Welcome Admin");
     }
     else if (type == "NormalUser")
     {
         Console.WriteLine("please write your address");
         string address = Console.ReadLine();
-       ItemService.GetItemService().SignUp(name,pass,address,UserType.NormalUser);
+       UserService.GetUserService().SignUp(name,pass,address,UserType.NormalUser);
        Console.WriteLine("Welcome NormalUser");
     }
 }
@@ -52,7 +52,7 @@ void LogIn()
     string name = Console.ReadLine();
     Console.WriteLine("what is your password?");
     string pass = Console.ReadLine();
-    if (ItemService.GetItemService().Login(name, pass))
+    if (UserService.GetUserService().Login(name, pass))
     {
         Console.WriteLine("you are logged in");
     }
@@ -64,12 +64,12 @@ void ChangeInfo(string input)
     Console.WriteLine("1.Name   2.password  3.address ");
     if (Console.ReadLine().Equals("1"))
     {
-        ItemService.GetItemService().ChangeName(input);
+        UserService.GetUserService().ChangeName(input);
     }else if (input.Equals("2"))
     {
-        ItemService.GetItemService().ChangePassword(input);
+        UserService.GetUserService().ChangePassword(input);
     }else if (input.Equals("3"))
     {
-        ItemService.GetItemService().ChangeAddress(input);
+        UserService.GetUserService().ChangeAddress(input);
     }
 }
