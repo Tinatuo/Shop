@@ -50,7 +50,6 @@ public class UserServiceTest
     [Fact]
     public void ChangeAddressTest()
     {
-        
         _sut.SignUp("Tina", "123", "nazar", UserType.NormalUser);
         _sut.Login("Tina", "123");
         var actual = _sut.ChangeAddress("yoyo");
