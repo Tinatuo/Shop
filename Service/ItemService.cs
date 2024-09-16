@@ -5,7 +5,16 @@ namespace Service;
 
 public class ItemService: IItemService
 {
+    public static ItemService itemService;
 
+    public static ItemService GetItemService()
+    {
+        if (itemService == null)
+        {
+            itemService = new ItemService();
+        }
+        return itemService;
+    }
     public bool AddBook(int price, int numbersOfItem, string address, int numberOfPages, string publication)
     {
         bool result = false;

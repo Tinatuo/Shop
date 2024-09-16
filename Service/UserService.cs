@@ -79,16 +79,20 @@ public class UserService : IUserService
         
     }
 
-    public void SignUp(string name, string pass, string address,UserType userType)
+    public bool SignUp(string name, string pass, string address,UserType userType)
     {
+        bool flag=false;
         if (userType == UserType.Admin)
         {
             Admin newAdmin=new Admin(name,pass);
             DataBase.GetDataBase().users.Add(newAdmin);
+            flag = true;
         }else if (userType == UserType.NormalUser)
         {
             NormalUser normalUser=new NormalUser(name, pass, address);
             DataBase.GetDataBase().users.Add(normalUser);
+            flag = true;
         }
+        return flag;
     }
 }

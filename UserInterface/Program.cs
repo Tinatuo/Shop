@@ -17,7 +17,9 @@ void First()
         LogIn();
     }else if (userInput.Equals("3"))
     {
-        
+        Console.WriteLine("what do you want to change?");
+        string input = Console.ReadLine();
+        ChangeInfo(input);
     }
     {
         
@@ -56,8 +58,58 @@ void LogIn()
     {
         Console.WriteLine("you are logged in");
     }
+
+    if (UserService.GetUserService().onlineUser is Admin)
+    {
+        
+    }else if (UserService.GetUserService().onlineUser is NormalUser)
+    {
+        
+    }
 }
 
+void AdminMenu()
+{
+    Console.WriteLine("1.addBook     2.addPen    3.remove a item"  );
+    string input = Console.ReadLine();
+    if (input.Equals("1"))
+    {
+        Console.WriteLine("Write price of book:");
+        int price = int.Parse(Console.ReadLine());
+        Console.WriteLine("Write address:");
+        string address = Console.ReadLine();
+        Console.WriteLine("Write number of items(if it is new):");
+        int numberOfItems = int.Parse(Console.ReadLine());
+        Console.WriteLine("Write publication of book:");
+        string publication = Console.ReadLine();
+        Console.WriteLine("Write number of pages of book:");
+        int numberOfPages = int.Parse(Console.ReadLine());
+        ItemService.itemService.AddBook(price, numberOfItems, address,numberOfPages, publication);
+    }else if (input.Equals("2"))
+    {
+        Console.WriteLine("Write price of book:");
+        int price = int.Parse(Console.ReadLine());
+        Console.WriteLine("Write address:");
+        string address = Console.ReadLine();
+        Console.WriteLine("Write number of items(if it is new):");
+        int numberOfItems = int.Parse(Console.ReadLine());
+        Console.WriteLine("write brand of this pen:");
+        string brand = Console.ReadLine();
+        Console.WriteLine("write color of this pen:");
+        string color = Console.ReadLine();
+        ItemService.GetItemService().AddPen(price,numberOfItems, address, brand, color);
+    }else if (input.Equals("3"))
+    {
+        foreach (Item item in DataBase.GetDataBase().items)
+        {
+            Console.WriteLine((DataBase.GetDataBase().items.IndexOf(item)+1)+"."+item.GetType().Name);
+        }
+        Console.WriteLine("which item would you like to remove?");
+        int remove = int.Parse(Console.ReadLine())-1;
+        ItemService.GetItemService().RemoveItem(DataBase.GetDataBase().items[remove]);
+    }
+    
+}
 void ChangeInfo(string input)
 {
     
@@ -66,11 +118,17 @@ void ChangeInfo(string input)
     if (Console.ReadLine().Equals("1"))
     {
         UserService.GetUserService().ChangeName(input);
+        Console.WriteLine("Done");
+        
     }else if (input.Equals("2"))
     {
         UserService.GetUserService().ChangePassword(input);
+        Console.WriteLine("Done");
+
     }else if (input.Equals("3"))
     {
         UserService.GetUserService().ChangeAddress(input);
+        Console.WriteLine("Done");
+
     }
 }

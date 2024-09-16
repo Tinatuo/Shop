@@ -8,6 +8,6 @@ public interface IUserService
     public bool ChangePassword(string newPassword);
     public bool ChangeName(string newName);
     public bool ChangeAddress(string newAddress);
-    public void SignUp(string name, string pass, string address,UserType userType);
+    public bool SignUp(string name, string pass, string address,UserType userType);
     
 }
